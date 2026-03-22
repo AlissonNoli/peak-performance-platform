@@ -26,7 +26,7 @@ import {
 } from "recharts";
 
 const todayWorkout = {
-  title: "Strength + Metcon "DT"",
+  title: 'Strength + Metcon "DT"',
   date: "Hoje — 22 Mar 2026",
   coach: "Coach Ricardo",
   exercises: 5,
