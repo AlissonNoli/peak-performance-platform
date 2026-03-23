@@ -1,4 +1,4 @@
-import { Flame, Dumbbell, Trophy, Wrench, Users, LogOut, User, ChevronDown } from "lucide-react";
+import { Flame, Dumbbell, Trophy, Wrench, Users, LogOut, User, ChevronDown, ClipboardPlus } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
 import { Link, Outlet } from "react-router-dom";
@@ -14,6 +14,7 @@ const sidebarLinks = [
   { to: "/dashboard/prs", icon: Trophy, label: "PRs" },
   { to: "/dashboard/tools", icon: Wrench, label: "Ferramentas" },
   { to: "/dashboard/groups", icon: Users, label: "Grupos" },
+  { to: "/dashboard/builder", icon: ClipboardPlus, label: "Criar Treino" },
 ];
 
 const DashboardLayout = () => {

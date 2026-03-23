@@ -10,6 +10,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import WorkoutExecution from "./pages/dashboard/WorkoutExecution";
+import WorkoutBuilder from "./pages/dashboard/WorkoutBuilder";
 import { PRsPage, ToolsPage, GroupsPage } from "./pages/dashboard/PlaceholderPages";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="prs" element={<PRsPage />} />
             <Route path="tools" element={<ToolsPage />} />
             <Route path="groups" element={<GroupsPage />} />
+            <Route path="builder" element={<WorkoutBuilder />} />
           </Route>
           <Route path="/dashboard/workout" element={<WorkoutExecution />} />
           <Route path="*" element={<NotFound />} />
