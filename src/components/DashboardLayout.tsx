@@ -1,4 +1,4 @@
-import { Flame, Dumbbell, Trophy, Wrench, Users, LogOut, User, ChevronDown } from "lucide-react";
+import { Flame, Dumbbell, Trophy, Wrench, Users, LogOut, User, ChevronDown, ClipboardPlus } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
 import { Link, Outlet } from "react-router-dom";
