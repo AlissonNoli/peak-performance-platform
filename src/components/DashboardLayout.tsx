@@ -14,6 +14,7 @@ const sidebarLinks = [
   { to: "/dashboard/prs", icon: Trophy, label: "PRs" },
   { to: "/dashboard/tools", icon: Wrench, label: "Ferramentas" },
   { to: "/dashboard/groups", icon: Users, label: "Grupos" },
+  { to: "/dashboard/builder", icon: ClipboardPlus, label: "Criar Treino" },
 ];
 
 const DashboardLayout = () => {

@@ -30,6 +30,7 @@ const App = () => (
             <Route path="prs" element={<PRsPage />} />
             <Route path="tools" element={<ToolsPage />} />
             <Route path="groups" element={<GroupsPage />} />
+            <Route path="builder" element={<WorkoutBuilder />} />
           </Route>
           <Route path="/dashboard/workout" element={<WorkoutExecution />} />
           <Route path="*" element={<NotFound />} />
