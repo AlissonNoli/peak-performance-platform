@@ -10,6 +10,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import WorkoutExecution from "./pages/dashboard/WorkoutExecution";
+import WorkoutBuilder from "./pages/dashboard/WorkoutBuilder";
 import { PRsPage, ToolsPage, GroupsPage } from "./pages/dashboard/PlaceholderPages";
 
 const queryClient = new QueryClient();
