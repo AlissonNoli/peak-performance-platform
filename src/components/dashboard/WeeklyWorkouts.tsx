@@ -27,7 +27,7 @@ const workouts: WeekWorkout[] = [
     id: 1,
     date: "17 Mar",
     dayLabel: "Seg",
-    title: "Strength + Metcon "DT"",
+    title: 'Strength + Metcon "DT"',
     status: "done",
     duration: "52 min",
   },
