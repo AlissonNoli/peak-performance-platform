@@ -140,16 +140,30 @@ const WorkoutExecution = () => {
   );
   const [comment, setComment] = useState("");
   const [finished, setFinished] = useState(false);
+  const [floatingTimer, setFloatingTimer] = useState<{
+    seconds: number;
+    label: string;
+  } | null>(null);
 
   const completedCount = blocks.filter((b) => b.completed).length;
   const overallProgress =
     blocks.length > 0 ? (completedCount / blocks.length) * 100 : 0;
 
-  const handleComplete = (blockId: number) => {
-    setBlocks((prev) =>
-      prev.map((b) => (b.id === blockId ? { ...b, completed: true } : b))
-    );
-  };
+  const handleComplete = useCallback((blockId: number) => {
+    setBlocks((prev) => {
+      const block = prev.find((b) => b.id === blockId);
+      // Auto-trigger floating timer for rest between sets
+      if (block?.restSeconds && block.restSeconds > 0) {
+        setFloatingTimer({
+          seconds: block.restSeconds,
+          label: `Descanso — ${block.title}`,
+        });
+      }
+      return prev.map((b) =>
+        b.id === blockId ? { ...b, completed: true } : b
+      );
+    });
+  }, []);
 
   const allDone = blocks.every((b) => b.completed);
 
