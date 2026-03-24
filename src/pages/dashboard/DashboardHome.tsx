@@ -278,6 +278,9 @@ const DashboardHome = () => {
           </CardContent>
         </Card>
       </ScrollReveal>
+
+      {/* Weekly Workouts */}
+      <WeeklyWorkouts />
     </div>
   );
 };
