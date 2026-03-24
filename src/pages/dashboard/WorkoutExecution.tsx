@@ -261,6 +261,13 @@ const WorkoutExecution = () => {
           {allDone ? "Salvar e Finalizar Treino" : "Complete todos os blocos para finalizar"}
         </Button>
       </div>
+
+      {/* Floating Timer */}
+      <FloatingTimer
+        suggestedSeconds={floatingTimer?.seconds}
+        suggestedLabel={floatingTimer?.label}
+        onDismissSuggestion={() => setFloatingTimer(null)}
+      />
     </div>
   );
 };
