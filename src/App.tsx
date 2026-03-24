@@ -9,6 +9,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
+import MyWorkoutsPage from "./pages/dashboard/MyWorkoutsPage";
 import WorkoutExecution from "./pages/dashboard/WorkoutExecution";
 import WorkoutBuilder from "./pages/dashboard/WorkoutBuilder";
 import { PRsPage, ToolsPage, GroupsPage } from "./pages/dashboard/PlaceholderPages";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
+            <Route path="workouts" element={<MyWorkoutsPage />} />
             <Route path="prs" element={<PRsPage />} />
             <Route path="tools" element={<ToolsPage />} />
             <Route path="groups" element={<GroupsPage />} />
