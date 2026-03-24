@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import WeeklyWorkouts from "@/components/dashboard/WeeklyWorkouts";
 import {
   BarChart,
   Bar,
