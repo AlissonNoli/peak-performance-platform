@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
@@ -6,6 +6,7 @@ import { X, Dumbbell, Check, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import WorkoutBlockCard, { type WorkoutBlock } from "@/components/workout/WorkoutBlockCard";
+import FloatingTimer from "@/components/workout/FloatingTimer";
 
 /* ─── Mock Workout Data (block-based) ────────────────── */
 
@@ -139,16 +140,30 @@ const WorkoutExecution = () => {
   );
   const [comment, setComment] = useState("");
   const [finished, setFinished] = useState(false);
+  const [floatingTimer, setFloatingTimer] = useState<{
+    seconds: number;
+    label: string;
+  } | null>(null);
 
   const completedCount = blocks.filter((b) => b.completed).length;
   const overallProgress =
     blocks.length > 0 ? (completedCount / blocks.length) * 100 : 0;
 
-  const handleComplete = (blockId: number) => {
-    setBlocks((prev) =>
-      prev.map((b) => (b.id === blockId ? { ...b, completed: true } : b))
-    );
-  };
+  const handleComplete = useCallback((blockId: number) => {
+    setBlocks((prev) => {
+      const block = prev.find((b) => b.id === blockId);
+      // Auto-trigger floating timer for rest between sets
+      if (block?.restSeconds && block.restSeconds > 0) {
+        setFloatingTimer({
+          seconds: block.restSeconds,
+          label: `Descanso — ${block.title}`,
+        });
+      }
+      return prev.map((b) =>
+        b.id === blockId ? { ...b, completed: true } : b
+      );
+    });
+  }, []);
 
   const allDone = blocks.every((b) => b.completed);
 
@@ -246,6 +261,13 @@ const WorkoutExecution = () => {
           {allDone ? "Salvar e Finalizar Treino" : "Complete todos os blocos para finalizar"}
         </Button>
       </div>
+
+      {/* Floating Timer */}
+      <FloatingTimer
+        suggestedSeconds={floatingTimer?.seconds}
+        suggestedLabel={floatingTimer?.label}
+        onDismissSuggestion={() => setFloatingTimer(null)}
+      />
     </div>
   );
 };
