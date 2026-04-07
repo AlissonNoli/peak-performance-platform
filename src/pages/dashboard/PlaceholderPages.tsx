@@ -8,5 +8,3 @@ const PlaceholderPage = ({ title }: { title: string }) => (
 );
 
 export const PRsPage = () => <PlaceholderPage title="Personal Records" />;
-export const ToolsPage = () => <PlaceholderPage title="Ferramentas" />;
-export const GroupsPage = () => <PlaceholderPage title="Gestão de Grupos" />;

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/auth/LoginPage";
@@ -12,7 +13,9 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import MyWorkoutsPage from "./pages/dashboard/MyWorkoutsPage";
 import WorkoutExecution from "./pages/dashboard/WorkoutExecution";
 import WorkoutBuilder from "./pages/dashboard/WorkoutBuilder";
-import { PRsPage, ToolsPage, GroupsPage } from "./pages/dashboard/PlaceholderPages";
+import GroupsPage from "./pages/dashboard/GroupsPage";
+import ToolsPage from "./pages/dashboard/ToolsPage";
+import { PRsPage } from "./pages/dashboard/PlaceholderPages";
 
 const queryClient = new QueryClient();
 
@@ -21,23 +24,25 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<DashboardHome />} />
-            <Route path="workouts" element={<MyWorkoutsPage />} />
-            <Route path="prs" element={<PRsPage />} />
-            <Route path="tools" element={<ToolsPage />} />
-            <Route path="groups" element={<GroupsPage />} />
-            <Route path="builder" element={<WorkoutBuilder />} />
-          </Route>
-          <Route path="/dashboard/workout" element={<WorkoutExecution />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/auth/login" element={<LoginPage />} />
+            <Route path="/auth/register" element={<RegisterPage />} />
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<DashboardHome />} />
+              <Route path="workouts" element={<MyWorkoutsPage />} />
+              <Route path="prs" element={<PRsPage />} />
+              <Route path="tools" element={<ToolsPage />} />
+              <Route path="groups" element={<GroupsPage />} />
+              <Route path="builder" element={<WorkoutBuilder />} />
+            </Route>
+            <Route path="/dashboard/workout" element={<WorkoutExecution />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
