@@ -24,25 +24,23 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth/login" element={<LoginPage />} />
-            <Route path="/auth/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route index element={<DashboardHome />} />
-              <Route path="workouts" element={<MyWorkoutsPage />} />
-              <Route path="prs" element={<PRsPage />} />
-              <Route path="tools" element={<ToolsPage />} />
-              <Route path="groups" element={<GroupsPage />} />
-              <Route path="builder" element={<WorkoutBuilder />} />
-            </Route>
-            <Route path="/dashboard/workout" element={<WorkoutExecution />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<DashboardHome />} />
+            <Route path="workouts" element={<MyWorkoutsPage />} />
+            <Route path="prs" element={<PRsPage />} />
+            <Route path="tools" element={<ToolsPage />} />
+            <Route path="groups" element={<GroupsPage />} />
+            <Route path="builder" element={<WorkoutBuilder />} />
+          </Route>
+          <Route path="/dashboard/workout" element={<WorkoutExecution />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
