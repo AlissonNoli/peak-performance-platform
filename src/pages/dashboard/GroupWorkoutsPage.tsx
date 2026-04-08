@@ -28,6 +28,15 @@ const GroupWorkoutsPage = () => {
   const [selectedGroup, setSelectedGroup] = useState(store.groups[0]?.id ?? "");
   const [weekOffset, setWeekOffset] = useState(0);
 
+  if (role === "atleta") {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 gap-4">
+        <Users className="h-12 w-12 text-muted-foreground/50" />
+        <p className="text-muted-foreground text-sm">Disponível apenas para coaches.</p>
+      </div>
+    );
+  }
+
   const today = new Date();
   const weekStart = addDays(startOfWeek(today, { weekStartsOn: 1 }), weekOffset * 7);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
