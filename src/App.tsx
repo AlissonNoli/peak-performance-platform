@@ -14,6 +14,7 @@ import MyWorkoutsPage from "./pages/dashboard/MyWorkoutsPage";
 import WorkoutExecution from "./pages/dashboard/WorkoutExecution";
 import WorkoutBuilder from "./pages/dashboard/WorkoutBuilder";
 import GroupsPage from "./pages/dashboard/GroupsPage";
+import GroupWorkoutsPage from "./pages/dashboard/GroupWorkoutsPage";
 import ToolsPage from "./pages/dashboard/ToolsPage";
 import { PRsPage } from "./pages/dashboard/PlaceholderPages";
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="prs" element={<PRsPage />} />
             <Route path="tools" element={<ToolsPage />} />
             <Route path="groups" element={<GroupsPage />} />
+            <Route path="group-workouts" element={<GroupWorkoutsPage />} />
             <Route path="builder" element={<WorkoutBuilder />} />
           </Route>
           <Route path="/dashboard/workout" element={<WorkoutExecution />} />
