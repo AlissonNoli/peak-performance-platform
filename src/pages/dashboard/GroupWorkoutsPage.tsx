@@ -28,6 +28,15 @@ const GroupWorkoutsPage = () => {
   const [selectedGroup, setSelectedGroup] = useState(store.groups[0]?.id ?? "");
   const [weekOffset, setWeekOffset] = useState(0);
 
+  const today = new Date();
+  const weekStart = addDays(startOfWeek(today, { weekStartsOn: 1 }), weekOffset * 7);
+  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+
+  const groupWorkouts = useMemo(() => {
+    if (!selectedGroup) return [];
+    return store.getWorkoutsForGroup(selectedGroup);
+  }, [selectedGroup, store.workouts]);
+
   if (role === "atleta") {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-4">
@@ -37,14 +46,6 @@ const GroupWorkoutsPage = () => {
     );
   }
 
-  const today = new Date();
-  const weekStart = addDays(startOfWeek(today, { weekStartsOn: 1 }), weekOffset * 7);
-  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
-
-  const groupWorkouts = useMemo(() => {
-    if (!selectedGroup) return [];
-    return store.getWorkoutsForGroup(selectedGroup);
-  }, [selectedGroup, store.workouts]);
 
   const getWorkoutsForDay = (day: Date) => {
     return groupWorkouts.filter((w) => {
