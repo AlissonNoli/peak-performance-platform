@@ -22,6 +22,7 @@ const allLinks = [
   { to: "/dashboard/prs", icon: Trophy, label: "PRs", roles: ["coach", "atleta"] as const },
   { to: "/dashboard/tools", icon: Wrench, label: "Ferramentas", roles: ["coach", "atleta"] as const },
   { to: "/dashboard/groups", icon: Users, label: "Grupos", roles: ["coach"] as const },
+  { to: "/dashboard/group-workouts", icon: Dumbbell, label: "Treinos Grupo", roles: ["coach"] as const },
   { to: "/dashboard/builder", icon: ClipboardPlus, label: "Criar Treino", roles: ["coach"] as const },
 ];
 
