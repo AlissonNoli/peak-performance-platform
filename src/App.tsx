@@ -16,7 +16,8 @@ import WorkoutBuilder from "./pages/dashboard/WorkoutBuilder";
 import GroupsPage from "./pages/dashboard/GroupsPage";
 import GroupWorkoutsPage from "./pages/dashboard/GroupWorkoutsPage";
 import ToolsPage from "./pages/dashboard/ToolsPage";
-import { PRsPage } from "./pages/dashboard/PlaceholderPages";
+import PRsPage from "./pages/dashboard/PRsPage";
+import TemplatesPage from "./pages/dashboard/TemplatesPage";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="groups" element={<GroupsPage />} />
             <Route path="group-workouts" element={<GroupWorkoutsPage />} />
             <Route path="builder" element={<WorkoutBuilder />} />
+            <Route path="templates" element={<TemplatesPage />} />
           </Route>
           <Route path="/dashboard/workout" element={<WorkoutExecution />} />
           <Route path="*" element={<NotFound />} />
