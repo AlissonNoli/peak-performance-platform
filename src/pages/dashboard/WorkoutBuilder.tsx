@@ -300,7 +300,7 @@ const WorkoutBuilder = () => {
       {/* Page header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <h1 className="text-2xl sm:text-3xl font-bold">
-          {editId ? "Editar Treino" : "Criar Novo Treino"}
+          {isTemplate ? (editId ? "Editar Template" : "Criar Novo Template") : (editId ? "Editar Treino" : "Criar Novo Treino")}
         </h1>
         <div className="flex items-center gap-2">
           <TemplatePicker onSelect={loadTemplate} />
