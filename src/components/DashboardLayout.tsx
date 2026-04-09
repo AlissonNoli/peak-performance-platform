@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Flame, Dumbbell, Trophy, Wrench, Users, LogOut, User,
-  ChevronDown, ClipboardPlus, Menu, LayoutDashboard,
+  ChevronDown, ClipboardPlus, Menu, LayoutDashboard, Layers,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,7 @@ const allLinks = [
   { to: "/dashboard/groups", icon: Users, label: "Grupos", roles: ["coach"] as const },
   { to: "/dashboard/group-workouts", icon: Dumbbell, label: "Treinos Grupo", roles: ["coach"] as const },
   { to: "/dashboard/builder", icon: ClipboardPlus, label: "Criar Treino", roles: ["coach"] as const },
+  { to: "/dashboard/templates", icon: Layers, label: "Templates", roles: ["coach"] as const },
 ];
 
 const SidebarNav = ({ role, onNavigate }: { role: string; onNavigate?: () => void }) => {
