@@ -114,7 +114,7 @@ const PRsPage = () => {
   const getProgressIcon = (ex: ExercisePR) => {
     if (ex.entries.length < 2) return <Minus className="h-4 w-4 text-muted-foreground" />;
     const sorted = [...ex.entries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    if (sorted[0].weight > sorted[1].weight) return <ArrowUp className="h-4 w-4 text-green-500" />;
+    if (sorted[0].weight > sorted[1].weight) return <ArrowUp className="h-4 w-4 text-secondary" />;
     if (sorted[0].weight < sorted[1].weight) return <ArrowDown className="h-4 w-4 text-destructive" />;
     return <Minus className="h-4 w-4 text-muted-foreground" />;
   };
@@ -248,8 +248,8 @@ const PRsPage = () => {
         </Card>
         <Card>
           <CardContent className="p-4 flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-green-500/10 flex items-center justify-center">
-              <ArrowUp className="h-5 w-5 text-green-500" />
+            <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center">
+              <ArrowUp className="h-5 w-5 text-secondary" />
             </div>
             <div>
               <p className="text-2xl font-bold">{bestPRsThisMonth}</p>
