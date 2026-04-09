@@ -281,7 +281,7 @@ const WorkoutBuilder = () => {
       description: `"${workout.title}" foi salvo com ${blocks.length} bloco(s).`,
     });
     if (!editId) {
-      navigate("/dashboard/group-workouts");
+      navigate(asTemplate || isTemplate ? "/dashboard/templates" : "/dashboard/group-workouts");
     }
   };
 
