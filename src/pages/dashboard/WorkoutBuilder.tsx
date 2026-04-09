@@ -521,13 +521,21 @@ const WorkoutBuilder = () => {
           </div>
 
           {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-2 pb-8">
-            <Button variant="hero" size="lg" className="flex-1" onClick={() => handleSave(false)}>
-              <Save className="h-4 w-4 mr-2" /> {editId ? "Atualizar Treino" : "Salvar Treino"}
-            </Button>
-            <Button variant="outline" size="lg" className="flex-1 gap-1" onClick={() => handleSave(true)}>
-              <Copy className="h-4 w-4" /> Salvar como Template
-            </Button>
+           <div className="flex flex-col sm:flex-row gap-3 pt-2 pb-8">
+            {isTemplate ? (
+              <Button variant="hero" size="lg" className="flex-1" onClick={() => handleSave(true)}>
+                <Save className="h-4 w-4 mr-2" /> {editId ? "Atualizar Template" : "Salvar Template"}
+              </Button>
+            ) : (
+              <>
+                <Button variant="hero" size="lg" className="flex-1" onClick={() => handleSave(false)}>
+                  <Save className="h-4 w-4 mr-2" /> {editId ? "Atualizar Treino" : "Salvar Treino"}
+                </Button>
+                <Button variant="outline" size="lg" className="flex-1 gap-1" onClick={() => handleSave(true)}>
+                  <Copy className="h-4 w-4" /> Salvar como Template
+                </Button>
+              </>
+            )}
             <Button variant="ghost" size="lg" className="gap-1" onClick={() => setActiveTab("preview")}>
               <Eye className="h-4 w-4" /> Pré-visualizar
             </Button>
