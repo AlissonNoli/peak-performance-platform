@@ -141,6 +141,7 @@ const WorkoutExecution = () => {
   );
   const [comment, setComment] = useState("");
   const [finished, setFinished] = useState(false);
+  const [viewMode, setViewMode] = useState<"detailed" | "simple">("detailed");
   const [floatingTimer, setFloatingTimer] = useState<{
     seconds: number;
     label: string;
