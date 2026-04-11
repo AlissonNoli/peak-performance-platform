@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   Flame, Dumbbell, Trophy, Wrench, Users, LogOut, User,
   ChevronDown, ClipboardPlus, Menu, LayoutDashboard, Layers,
+  UserPlus, ShieldCheck,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,8 @@ const allLinks = [
   { to: "/dashboard/group-workouts", icon: Dumbbell, label: "Treinos Grupo", roles: ["coach"] as const },
   { to: "/dashboard/builder", icon: ClipboardPlus, label: "Criar Treino", roles: ["coach"] as const },
   { to: "/dashboard/templates", icon: Layers, label: "Templates", roles: ["coach"] as const },
+  { to: "/dashboard/invite", icon: UserPlus, label: "Convidar Atletas", roles: ["coach"] as const },
+  { to: "/dashboard/my-coach", icon: ShieldCheck, label: "Meu Coach", roles: ["atleta"] as const },
 ];
 
 const SidebarNav = ({ role, onNavigate }: { role: string; onNavigate?: () => void }) => {
