@@ -18,6 +18,9 @@ import GroupWorkoutsPage from "./pages/dashboard/GroupWorkoutsPage";
 import ToolsPage from "./pages/dashboard/ToolsPage";
 import PRsPage from "./pages/dashboard/PRsPage";
 import TemplatesPage from "./pages/dashboard/TemplatesPage";
+import InviteAthletesPage from "./pages/dashboard/InviteAthletesPage";
+import MyCoachPage from "./pages/dashboard/MyCoachPage";
+import JoinCoachPage from "./pages/JoinCoachPage";
 
 const queryClient = new QueryClient();
 
@@ -40,8 +43,11 @@ const App = () => (
             <Route path="group-workouts" element={<GroupWorkoutsPage />} />
             <Route path="builder" element={<WorkoutBuilder />} />
             <Route path="templates" element={<TemplatesPage />} />
+            <Route path="invite" element={<InviteAthletesPage />} />
+            <Route path="my-coach" element={<MyCoachPage />} />
           </Route>
           <Route path="/dashboard/workout" element={<WorkoutExecution />} />
+          <Route path="/join/:code" element={<JoinCoachPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

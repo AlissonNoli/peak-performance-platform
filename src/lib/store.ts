@@ -70,6 +70,27 @@ let _athletes = [...INITIAL_ATHLETES];
 let _workouts: SavedWorkout[] = [];
 let _listeners: (() => void)[] = [];
 
+// Coach-athlete connections
+export interface CoachConnection {
+  coachId: string;
+  coachName: string;
+  athleteId: string;
+  connectedAt: string;
+}
+
+export interface InviteCode {
+  code: string;
+  coachId: string;
+  coachName: string;
+  createdAt: string;
+}
+
+let _connections: CoachConnection[] = [
+  { coachId: "mock-user-1", coachName: "Coach Ricardo", athleteId: "a1", connectedAt: "2025-01-15" },
+  { coachId: "mock-user-1", coachName: "Coach Ricardo", athleteId: "a2", connectedAt: "2025-02-10" },
+];
+let _inviteCodes: InviteCode[] = [];
+
 function notify() {
   _listeners.forEach((l) => l());
 }
@@ -158,5 +179,45 @@ export function useStore() {
       return _workouts.filter((w) => w.assignTo === "group" && w.assignId === groupId);
     },
     getTemplates: () => _workouts.filter((w) => w.isTemplate),
+
+    // Connection management
+    connections: _connections,
+    inviteCodes: _inviteCodes,
+
+    generateInviteCode: (coachId: string, coachName: string) => {
+      const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+      const invite: InviteCode = { code, coachId, coachName, createdAt: new Date().toISOString() };
+      _inviteCodes = [..._inviteCodes, invite];
+      notify();
+      return invite;
+    },
+
+    joinCoach: (code: string, athleteId: string) => {
+      const invite = _inviteCodes.find((i) => i.code === code);
+      if (!invite) return { success: false, error: "Código inválido" };
+      const already = _connections.find((c) => c.coachId === invite.coachId && c.athleteId === athleteId);
+      if (already) return { success: false, error: "Já está conectado a este coach" };
+      _connections = [..._connections, {
+        coachId: invite.coachId,
+        coachName: invite.coachName,
+        athleteId: athleteId,
+        connectedAt: new Date().toISOString(),
+      }];
+      notify();
+      return { success: true, coachName: invite.coachName };
+    },
+
+    leaveCoach: (coachId: string, athleteId: string) => {
+      _connections = _connections.filter((c) => !(c.coachId === coachId && c.athleteId === athleteId));
+      notify();
+    },
+
+    getCoachesForAthlete: (athleteId: string) => {
+      return _connections.filter((c) => c.athleteId === athleteId);
+    },
+
+    getAthletesForCoach: (coachId: string) => {
+      return _connections.filter((c) => c.coachId === coachId);
+    },
   };
 }
