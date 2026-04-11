@@ -246,13 +246,17 @@ const WorkoutExecution = () => {
 
       {/* Block list */}
       <div className="flex-1 px-4 sm:px-6 py-6 max-w-2xl mx-auto w-full space-y-4">
-        {blocks.map((block) => (
-          <WorkoutBlockCard
-            key={block.id}
-            block={block}
-            onComplete={handleComplete}
-          />
-        ))}
+        {viewMode === "detailed" ? (
+          blocks.map((block) => (
+            <WorkoutBlockCard
+              key={block.id}
+              block={block}
+              onComplete={handleComplete}
+            />
+          ))
+        ) : (
+          <WorkoutSimpleView blocks={blocks} />
+        )}
 
         {/* Comments area */}
         <Card className="border-border">
