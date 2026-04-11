@@ -208,6 +208,24 @@ const WorkoutExecution = () => {
               21/03/2026 - BASE PRO - Strength, Pot Aeróbica
             </span>
           </div>
+          <div className="flex items-center gap-1">
+            <Button
+              variant={viewMode === "detailed" ? "secondary" : "ghost"}
+              size="sm"
+              className="h-8 text-xs gap-1"
+              onClick={() => setViewMode("detailed")}
+            >
+              <LayoutList className="h-3.5 w-3.5" /> Detalhada
+            </Button>
+            <Button
+              variant={viewMode === "simple" ? "secondary" : "ghost"}
+              size="sm"
+              className="h-8 text-xs gap-1"
+              onClick={() => setViewMode("simple")}
+            >
+              <List className="h-3.5 w-3.5" /> Simples
+            </Button>
+          </div>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/dashboard" className="flex items-center gap-1 text-muted-foreground">
               <X className="h-4 w-4" /> Sair
