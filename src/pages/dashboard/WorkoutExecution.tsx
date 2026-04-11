@@ -2,10 +2,11 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { X, Dumbbell, Check, Send } from "lucide-react";
+import { X, Dumbbell, Check, Send, List, LayoutList } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import WorkoutBlockCard, { type WorkoutBlock } from "@/components/workout/WorkoutBlockCard";
+import WorkoutSimpleView from "@/components/workout/WorkoutSimpleView";
 import FloatingTimer from "@/components/workout/FloatingTimer";
 
 /* ─── Mock Workout Data (block-based) ────────────────── */
@@ -140,6 +141,7 @@ const WorkoutExecution = () => {
   );
   const [comment, setComment] = useState("");
   const [finished, setFinished] = useState(false);
+  const [viewMode, setViewMode] = useState<"detailed" | "simple">("detailed");
   const [floatingTimer, setFloatingTimer] = useState<{
     seconds: number;
     label: string;
@@ -206,6 +208,24 @@ const WorkoutExecution = () => {
               21/03/2026 - BASE PRO - Strength, Pot Aeróbica
             </span>
           </div>
+          <div className="flex items-center gap-1">
+            <Button
+              variant={viewMode === "detailed" ? "secondary" : "ghost"}
+              size="sm"
+              className="h-8 text-xs gap-1"
+              onClick={() => setViewMode("detailed")}
+            >
+              <LayoutList className="h-3.5 w-3.5" /> Detalhada
+            </Button>
+            <Button
+              variant={viewMode === "simple" ? "secondary" : "ghost"}
+              size="sm"
+              className="h-8 text-xs gap-1"
+              onClick={() => setViewMode("simple")}
+            >
+              <List className="h-3.5 w-3.5" /> Simples
+            </Button>
+          </div>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/dashboard" className="flex items-center gap-1 text-muted-foreground">
               <X className="h-4 w-4" /> Sair
@@ -226,13 +246,17 @@ const WorkoutExecution = () => {
 
       {/* Block list */}
       <div className="flex-1 px-4 sm:px-6 py-6 max-w-2xl mx-auto w-full space-y-4">
-        {blocks.map((block) => (
-          <WorkoutBlockCard
-            key={block.id}
-            block={block}
-            onComplete={handleComplete}
-          />
-        ))}
+        {viewMode === "detailed" ? (
+          blocks.map((block) => (
+            <WorkoutBlockCard
+              key={block.id}
+              block={block}
+              onComplete={handleComplete}
+            />
+          ))
+        ) : (
+          <WorkoutSimpleView blocks={blocks} />
+        )}
 
         {/* Comments area */}
         <Card className="border-border">
