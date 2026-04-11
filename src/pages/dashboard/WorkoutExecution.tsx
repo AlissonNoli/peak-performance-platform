@@ -2,10 +2,11 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { X, Dumbbell, Check, Send } from "lucide-react";
+import { X, Dumbbell, Check, Send, List, LayoutList } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import WorkoutBlockCard, { type WorkoutBlock } from "@/components/workout/WorkoutBlockCard";
+import WorkoutSimpleView from "@/components/workout/WorkoutSimpleView";
 import FloatingTimer from "@/components/workout/FloatingTimer";
 
 /* ─── Mock Workout Data (block-based) ────────────────── */
