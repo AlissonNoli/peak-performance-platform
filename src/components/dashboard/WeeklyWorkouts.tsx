@@ -20,6 +20,7 @@ interface WeekWorkout {
   title: string;
   status: "done" | "scheduled" | "missed";
   duration?: string;
+  createdBy: "coach" | "athlete";
 }
 
 const workouts: WeekWorkout[] = [
