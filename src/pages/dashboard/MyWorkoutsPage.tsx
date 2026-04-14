@@ -45,9 +45,48 @@ function formatWeekRange(start: Date): string {
   return `${start.getDate()} ${monthLabels[start.getMonth()]} — ${end.getDate()} ${monthLabels[end.getMonth()]}`;
 }
 
+/* ─── Mock data ─── */
+function buildMockWorkouts(): Workout[] {
+  const today = new Date();
+  const mon = new Date(today);
+  mon.setDate(today.getDate() - ((today.getDay() + 6) % 7)); // Monday
+
+  const make = (offset: number, title: string, status: "done" | "scheduled" | "missed", createdBy: "coach" | "athlete", duration?: string): Workout => {
+    const d = new Date(mon);
+    d.setDate(mon.getDate() + offset);
+    return {
+      id: `mock-w-${offset}`,
+      title,
+      status,
+      date: d.toISOString().slice(0, 10),
+      duration,
+      createdBy,
+    };
+  };
+
+  return [
+    make(0, 'Strength + Metcon "DT"', "done", "coach", "52 min"),
+    make(1, "Oly Lifting + Gymnastics", "done", "coach", "48 min"),
+    make(2, "Mobilidade + Yoga", "done", "athlete", "30 min"),
+    make(3, "Engine + Core", "done", "coach", "55 min"),
+    make(4, "Strength, Pot Aeróbica", "scheduled", "coach", "~60 min"),
+    make(4, "Corrida Leve 5km", "scheduled", "athlete", "~35 min"),
+    make(5, "Team WOD", "scheduled", "coach", "~45 min"),
+    make(6, "Active Recovery", "missed", "athlete"),
+    // Previous week
+    make(-7, "Back Squat + AMRAP", "done", "coach", "50 min"),
+    make(-6, "Treino Funcional", "done", "athlete", "40 min"),
+    make(-5, "Gymnastics Skills", "done", "coach", "45 min"),
+    make(-4, "Rest Day", "done", "athlete"),
+    make(-3, "Deadlift + Metcon", "done", "coach", "55 min"),
+    make(-2, "Open Prep", "done", "coach", "60 min"),
+    make(-1, "Swim + Run", "done", "athlete", "50 min"),
+  ];
+}
+
 /* ─── Hooks (stub — ligar à API real) ─── */
 function useWorkouts() {
-  const [workouts] = useState<Workout[]>([]);
+  const [workouts] = useState<Workout[]>(() => buildMockWorkouts());
   const [loading] = useState(false);
   const [error] = useState<string | null>(null);
   return { workouts, loading, error };
