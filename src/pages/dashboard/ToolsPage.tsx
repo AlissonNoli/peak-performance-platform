@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Wrench, Download, Upload, FileSpreadsheet, Timer, Inbox } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import CrossFitTimer from "@/components/tools/CrossFitTimer";
 import { toast } from "sonner";
 
 /* ─── CSV helpers (stubs) ─── */
@@ -154,7 +155,7 @@ const ToolsPage = () => {
               supportsDryRun
             />
           </div>
-          <PlaceholderSection title="Cronómetro avançado" icon={Timer} />
+          <CrossFitTimer />
         </div>
       ) : (
         <div className="space-y-6">
@@ -181,7 +182,7 @@ const ToolsPage = () => {
               filename="logs_export.csv"
             />
           </div>
-          <PlaceholderSection title="Cronómetro" icon={Timer} />
+          <CrossFitTimer />
         </div>
       )}
     </div>
