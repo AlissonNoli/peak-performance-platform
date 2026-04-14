@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   ChevronLeft, ChevronRight, CheckCircle2, Clock, AlertCircle,
-  Play, Calendar, Eye, Dumbbell, Inbox,
+  Play, Calendar, Eye, Dumbbell, Inbox, User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -17,6 +17,11 @@ const statusConfig = {
   done: { icon: CheckCircle2, label: "Concluído", badge: "bg-green-500/15 text-green-400 border-green-500/30", dot: "bg-green-500" },
   scheduled: { icon: Clock, label: "Agendado", badge: "bg-secondary/15 text-secondary border-secondary/30", dot: "bg-secondary" },
   missed: { icon: AlertCircle, label: "Em Falta", badge: "bg-destructive/15 text-destructive border-destructive/30", dot: "bg-destructive" },
+};
+
+const creatorConfig = {
+  coach: { label: "Coach", color: "bg-primary/15 text-primary border-primary/30", borderColor: "border-l-primary" },
+  athlete: { label: "Meu", color: "bg-blue-500/15 text-blue-400 border-blue-500/30", borderColor: "border-l-blue-500" },
 };
 
 const dayLabels = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
@@ -42,9 +47,6 @@ function formatWeekRange(start: Date): string {
 
 /* ─── Hooks (stub — ligar à API real) ─── */
 function useWorkouts() {
-  // TODO: replace with real API call
-  // const { role } = useAuth();
-  // const path = role === "coach" ? "/coach/workouts/" : "/athlete/workouts/";
   const [workouts] = useState<Workout[]>([]);
   const [loading] = useState(false);
   const [error] = useState<string | null>(null);
@@ -75,16 +77,35 @@ const WorkoutSkeleton = () => (
   </div>
 );
 
+/* ─── Creator Legend ─── */
+const CreatorLegend = () => (
+  <div className="flex items-center gap-4 mb-3">
+    <div className="flex items-center gap-1.5">
+      <div className="w-2.5 h-2.5 rounded-sm bg-primary" />
+      <span className="text-[10px] text-muted-foreground">Coach</span>
+    </div>
+    <div className="flex items-center gap-1.5">
+      <div className="w-2.5 h-2.5 rounded-sm bg-blue-500" />
+      <span className="text-[10px] text-muted-foreground">Meu treino</span>
+    </div>
+  </div>
+);
+
 /* ─── Workout Card ─── */
 const WorkoutCard = ({ workout, isToday }: { workout: Workout; isToday: boolean }) => {
   const status = workout.status ?? "scheduled";
   const cfg = statusConfig[status];
   const Icon = cfg.icon;
   const date = new Date(workout.date);
+  const createdBy = workout.createdBy ?? "coach";
+  const creator = creatorConfig[createdBy];
+  const hasWorkout = status !== "missed";
 
   return (
-    <div className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${isToday ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
-      <div className="w-14 shrink-0 text-center">
+    <div className={`flex items-center gap-3 p-3 rounded-lg border transition-colors border-l-2 ${creator.borderColor} ${
+      isToday ? "border-primary/40 bg-primary/5" : hasWorkout ? "border-border bg-card" : "border-border bg-muted/30"
+    }`}>
+      <div className={`w-14 shrink-0 text-center ${hasWorkout ? "" : "opacity-50"}`}>
         <p className="text-[10px] uppercase text-muted-foreground tracking-wider">{dayLabels[date.getDay()]}</p>
         <p className={`text-lg font-bold tabular-nums ${isToday ? "text-primary" : ""}`}>{date.getDate()}</p>
         <p className="text-[10px] text-muted-foreground">{monthLabels[date.getMonth()]}</p>
@@ -92,10 +113,18 @@ const WorkoutCard = ({ workout, isToday }: { workout: Workout; isToday: boolean 
       <div className={`w-2 h-2 rounded-full shrink-0 ${cfg.dot}`} />
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium truncate">{workout.title}</p>
-        {workout.coach_name && <p className="text-xs text-muted-foreground">{workout.coach_name}</p>}
-        {workout.duration && <p className="text-xs text-muted-foreground mt-0.5">{workout.duration}</p>}
+        <div className="flex items-center gap-2 mt-0.5">
+          {workout.coach_name && <p className="text-xs text-muted-foreground">{workout.coach_name}</p>}
+          {workout.duration && <p className="text-xs text-muted-foreground">{workout.duration}</p>}
+        </div>
       </div>
       <div className="flex items-center gap-2 shrink-0">
+        {/* Creator badge */}
+        <Badge variant="outline" className={`text-[10px] ${creator.color}`}>
+          {createdBy === "coach" ? <Dumbbell className="h-3 w-3 mr-0.5" /> : <User className="h-3 w-3 mr-0.5" />}
+          {creator.label}
+        </Badge>
+        {/* Status badge */}
         <Badge variant="outline" className={`text-[10px] ${cfg.badge}`}>
           <Icon className="h-3 w-3 mr-0.5" />
           {cfg.label}
@@ -207,6 +236,7 @@ const MyWorkoutsPage = () => {
               </div>
             </CardHeader>
             <CardContent>
+              <CreatorLegend />
               {loading ? <WorkoutSkeleton /> : weekWorkouts.length === 0 ? <EmptyState message={emptyMsg} /> : (
                 <div className="space-y-2">
                   {weekWorkouts.map((w) => <WorkoutCard key={w.id} workout={w} isToday={isSameDay(new Date(w.date), today)} />)}
@@ -220,6 +250,7 @@ const MyWorkoutsPage = () => {
           <Card>
             <CardHeader className="pb-2"><CardTitle className="text-base">Treinos Anteriores</CardTitle></CardHeader>
             <CardContent>
+              <CreatorLegend />
               {loading ? <WorkoutSkeleton /> : pastWorkouts.length === 0 ? <EmptyState message="Sem treinos anteriores." /> : (
                 <div className="space-y-2">{pastWorkouts.map((w) => <WorkoutCard key={w.id} workout={w} isToday={false} />)}</div>
               )}
@@ -231,6 +262,7 @@ const MyWorkoutsPage = () => {
           <Card>
             <CardHeader className="pb-2"><CardTitle className="text-base">Próximos Treinos</CardTitle></CardHeader>
             <CardContent>
+              <CreatorLegend />
               {loading ? <WorkoutSkeleton /> : futureWorkouts.length === 0 ? <EmptyState message="Sem treinos futuros agendados." /> : (
                 <div className="space-y-2">{futureWorkouts.map((w) => <WorkoutCard key={w.id} workout={w} isToday={false} />)}</div>
               )}

@@ -134,16 +134,29 @@ const GroupWorkoutsPage = () => {
             const isToday = isSameDay(day, today);
 
             return (
-              <Card key={i} className={`min-h-[180px] ${isToday ? "border-primary/50 ring-1 ring-primary/20" : ""}`}>
+              <Card key={i} className={`min-h-[180px] transition-all ${
+                isToday
+                  ? "border-primary/50 ring-1 ring-primary/20"
+                  : dayWorkouts.length > 0
+                    ? "border-secondary/40 bg-secondary/5"
+                    : "border-border bg-muted/20 opacity-70"
+              }`}>
                 <CardHeader className="p-3 pb-1">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs text-muted-foreground">{WEEKDAYS[i]}</p>
-                      <p className={`text-sm font-bold ${isToday ? "text-primary" : ""}`}>
+                      <p className={`text-sm font-bold ${isToday ? "text-primary" : dayWorkouts.length > 0 ? "text-foreground" : "text-muted-foreground"}`}>
                         {format(day, "dd/MM")}
                       </p>
                     </div>
-                    {isToday && <Badge className="text-[9px] bg-primary/20 text-primary">Hoje</Badge>}
+                    <div className="flex items-center gap-1">
+                      {dayWorkouts.length > 0 && !isToday && (
+                        <Badge className="text-[9px] bg-secondary/20 text-secondary border-secondary/30" variant="outline">
+                          {dayWorkouts.length} treino{dayWorkouts.length > 1 ? "s" : ""}
+                        </Badge>
+                      )}
+                      {isToday && <Badge className="text-[9px] bg-primary/20 text-primary">Hoje</Badge>}
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-3 pt-0 space-y-2">

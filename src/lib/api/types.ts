@@ -19,6 +19,7 @@ export interface Workout {
   duration?: string;
   type?: string;
   blocks?: WorkoutBlock[];
+  createdBy?: "coach" | "athlete"; // who created the workout
 }
 
 export interface WorkoutBlock {
